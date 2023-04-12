@@ -1,0 +1,1 @@
+docker-compose logs -f nginx published-apis jwtauth api-invocation-logs service-apis api-invoker-management capif-security easy-rsa api-provider-management logs

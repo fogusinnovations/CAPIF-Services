@@ -1,13 +1,9 @@
 version: '3.7'
 
 services:
-#  aef-security:
-#    build: TS29222_AEF_Security_API/.
-#    expose:
-#      - "8080"
-#    image: dockerhub.hi.inet/fogus-services/aef/security_api:latest
   redis:
     image: "redis:alpine"
+    container_name: capif-redis
     command: redis-server
     ports:
       - "6379:6379"
@@ -17,6 +13,7 @@ services:
     environment:
       - REDIS_REPLICATION_MODE=master
   api-invoker-management:
+    container_name: api-invoker-management
     build: TS29222_CAPIF_API_Invoker_Management_API/.
     expose:
       - "8080"
@@ -28,6 +25,7 @@ services:
     - redis
     - nginx
   api-provider-management:
+    container_name: api-provider-management
     build: TS29222_CAPIF_API_Provider_Management_API/.
     expose:
       - "8080"
@@ -35,12 +33,8 @@ services:
     depends_on:
       - redis
       - nginx
-#  access-control-policy:
-#    build: TS29222_CAPIF_Access_Control_Policy_API/.
-#    expose:
-#      - "8080"
-#    image: dockerhub.hi.inet/fogus-services/capif/access_control_policy_api:latest
   logs:
+    container_name: capif-auditing
     build: TS29222_CAPIF_Auditing_API/.
     expose:
       - "8080"
@@ -49,6 +43,7 @@ services:
     restart: unless-stopped
     image: dockerhub.hi.inet/fogus-services/capif/auditing_api:latest
   service-apis:
+    container_name: service-apis
     build: TS29222_CAPIF_Discover_Service_API/.
     expose:
       - "8080"
@@ -59,6 +54,7 @@ services:
     depends_on:
     - mongo
   capif-events:
+    container_name: capif-events
     build: TS29222_CAPIF_Events_API/.
     expose:
       - "8080"
@@ -69,6 +65,7 @@ services:
       - redis
       - mongo
   api-invocation-logs:
+    container_name: capif-logging
     build: TS29222_CAPIF_Logging_API_Invocation_API/.
     expose:
       - "8080"
@@ -79,6 +76,7 @@ services:
     environment:
       - CAPIF_HOSTNAME=${CAPIF_HOSTNAME}
   published-apis:
+    container_name: published-apis
     build: TS29222_CAPIF_Publish_Service_API/.
     expose:
       - "8080"
@@ -90,11 +88,13 @@ services:
       - redis
       - mongo
   capif-routing-info:
+    container_name: capif-routing-info
     build: TS29222_CAPIF_Routing_Info_API/.
     expose:
       - "8080"
     image: dockerhub.hi.inet/fogus-services/capif/routing_info_api:latest
   capif-security:
+    container_name: capif-security
     build: TS29222_CAPIF_Security_API/.
     expose:
       - "8080"
@@ -110,6 +110,7 @@ services:
       - redis
       - nginx
   easy-rsa:
+    container_name: capif-ca
     build:
       context: ./easy_rsa
     expose:
@@ -117,6 +118,7 @@ services:
     restart: unless-stopped
     image: dockerhub.hi.inet/fogus-services/easy-rsa:latest
   jwtauth:
+    container_name: capif-jwtauth
     build:
       context: ./jwt_auth
     expose:
@@ -131,6 +133,7 @@ services:
       - redis
       - nginx
   mongo:
+    container_name: capif-mongo
     image: mongo:6.0.2
     logging:
       driver: 'none'
@@ -141,6 +144,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
   mongo-express:
+    container_name: capif-mongo-express
     image: mongo-express:1.0.0-alpha.4
     logging:
       driver: 'none'
@@ -154,6 +158,7 @@ services:
     depends_on:
       - mongo
   nginx:
+    container_name: capif-nginx
     build:
       context: ./nginx
     ports:
@@ -167,18 +172,11 @@ services:
       - ./nginx/certs:/etc/nginx/certs
     restart: unless-stopped
     depends_on:
-      #- api-invoker-management
       - easy-rsa
       - redis
-#      - aef-security
-#      - api-invoker-management
-      #- api-provider-management
-#      - access-control-policy
       - service-apis
       - api-invocation-logs
       - published-apis
-#      - capif-routing-info
-      #- capif-security
       - capif-events
       - logs
 
