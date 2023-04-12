@@ -1,0 +1,20 @@
+.idea
+.git
+# Byte-compiled / optimized / DLL files
+__pycache__/
+./libraries/__pycache__/*.py[cod]
+*.py[cod]
+*$py.class
+*.DS_Store
+*.key
+*.csr
+*.pem
+*.crt
+*.zip
+services/nginx/certs/sign_req_body.json
+
+!docs/testing_with_curl/exposer.key
+!docs/testing_with_curl/invoker.key
+
+
+results

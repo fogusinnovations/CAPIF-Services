@@ -1,0 +1,15 @@
+{
+  "notificationDestination": "http://host.docker.internal:8086/netapp_callback",
+  "supportedFeatures": "fffffff",
+  "apiInvokerInformation": "ROBOT_TESTING_INVOKER",
+  "websockNotifConfig": {
+    "requestWebsocketUri": true,
+    "websocketUri": "websocketUri"
+  },
+  "onboardingInformation": {
+    "apiInvokerPublicKey": "{PUBLIC_KEY}",
+    "onboardingSecret": "onboardingSecret",
+    "apiInvokerCertificate": "apiInvokerCertificate"
+  },
+  "requestTestNotification": true
+}
