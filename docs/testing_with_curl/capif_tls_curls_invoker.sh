@@ -23,6 +23,7 @@ curl --request GET "http://$capifhost:$capifhttpport/ca-root" 2>/dev/null | jq -
 invokerid=$(curl --request POST "http://$capifhost:$capifhttpport/register" --header 'Content-Type: application/json' --data '{
     "username":"invoker",
     "password":"invoker",
+    "salt":"76gieierueotvb4ie",
     "role":"invoker",
     "description":"Invoker",
     "cn":"invoker"
@@ -31,7 +32,7 @@ invokerid=$(curl --request POST "http://$capifhost:$capifhttpport/register" --he
 
 ##### Get access token 
 
-invokertoken=$(curl --request POST "http://$capifhost:$capifhttpport/gettoken" --header 'Content-Type: application/json' --data '{
+invokertoken=$(curl --request POST "http://$capifhost:$capifhttpport/getauth" --header 'Content-Type: application/json' --data '{
     "username":"invoker",
     "password":"invoker",
     "role":"invoker"

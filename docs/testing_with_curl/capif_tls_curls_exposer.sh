@@ -22,6 +22,7 @@ curl --request GET "http://$capifhost:$capifhttpport/ca-root" 2>/dev/null | jq -
 exposerid=$(curl --request POST "http://$capifhost:$capifhttpport/register" --header 'Content-Type: application/json' --data '{
     "username":"exposer",
     "password":"exposer",
+    "salt":"76gieierueotvb4ie",
     "role":"exposer",
     "description":"Exposer",
     "cn":"exposer"
