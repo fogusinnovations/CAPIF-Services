@@ -5,4 +5,5 @@ pymongo == 4.0.1
 flask_jwt_extended
 pyopenssl
 pyyaml
+bcrypt
 requests

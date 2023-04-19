@@ -4,6 +4,7 @@ from ..db.db import MongoDatabse
 import secrets
 import requests
 import json
+import bcrypt
 import sys
 
 class RegisterOperations:
@@ -12,14 +13,14 @@ class RegisterOperations:
         self.db = MongoDatabse()
         self.mimetype = 'application/json'
 
-    def register_invoker(self, username, password, description, cn, role):
+    def register_invoker(self, username, password, salt, description, cn, role):
 
         mycol = self.db.get_col_by_name(self.db.capif_users)
         exist_user = mycol.find_one({"username": username})
         if exist_user:
             return jsonify("Invoker already exists"), 409
 
-        user_info = dict(_id=secrets.token_hex(7), username=username, password=password, role=role, description=description, cn=cn)
+        user_info = dict(_id=secrets.token_hex(7), username=username, password=password, salt=salt, role=role, description=description, cn=cn)
         obj = mycol.insert_one(user_info)
 
         return jsonify(message="invoker registered successfully",
@@ -28,13 +29,13 @@ class RegisterOperations:
                     ccf_discover_url="service-apis/v1/allServiceAPIs?api-invoker-id="), 201
 
 
-    def register_provider(self, username, password, description, cn, role):
+    def register_provider(self, username, password, salt, description, cn, role):
         mycol = self.db.get_col_by_name(self.db.capif_users)
         exist_user = mycol.find_one({"username": username})
         if exist_user:
             return jsonify("Provider already exists"), 409
 
-        user_info = dict(_id=secrets.token_hex(7), username=username, password=password, role=role, description=description, cn=cn)
+        user_info = dict(_id=secrets.token_hex(7), username=username, password=password, salt=salt, role=role, description=description, cn=cn)
         obj = mycol.insert_one(user_info)
 
         return jsonify(message="provider" + " registered successfully",
@@ -48,7 +49,15 @@ class RegisterOperations:
 
         try:
 
-            exist_user = mycol.find_one({"username": username, "password": password})
+            exist_user = mycol.find_one({"username": username})
+
+            if exist_user is None:
+                return jsonify("Not exist user with this credentials"), 400
+
+            salt = exist_user["salt"].encode('utf-8')
+            hashed_pass = bcrypt.hashpw(password.encode('utf-8'), salt)
+
+            exist_user = mycol.find_one({"username": username, "password": hashed_pass.decode('utf-8')})
 
             if exist_user is None:
                 return jsonify("Not exister user with this credentials"), 400
