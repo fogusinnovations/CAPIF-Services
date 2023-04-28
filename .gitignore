@@ -12,7 +12,8 @@ __pycache__/
 *.crt
 *.zip
 services/nginx/certs/sign_req_body.json
-
+services/services
+services/running
 !docs/testing_with_curl/exposer.key
 !docs/testing_with_curl/invoker.key
 
