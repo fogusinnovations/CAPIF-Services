@@ -1,4 +1,4 @@
-# FOGUS Common API Framework (CAPIF)
+# Common API Framework (CAPIF)
 
 - [Common API Framework (CAPIF)](#common-api-framework-capif)
 - [Repository structure](#repository-structure)
@@ -46,7 +46,7 @@ CAPIF_API_Services
   * test_plan: test plan descriptions for each API service referring to the test that are executed with the Robot Framework.
   * testing_with_postman: auxiliary JSON file needed for the Postman-based examples.
 
-# FOGUS-CAPIF-Services
+# CAPIF-Services
 This repository has the python-flask Mockup servers created with openapi-generator related with CAPIF APIS defined here:
 [Open API Descriptions of 3GPP 5G APIs]
 
