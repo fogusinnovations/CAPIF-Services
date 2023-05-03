@@ -1,4 +1,4 @@
-# FOGUS Common API Framework (CAPIF)
+# Common API Framework (CAPIF)
 
 - [Common API Framework (CAPIF)](#common-api-framework-capif)
 - [Repository structure](#repository-structure)
@@ -46,41 +46,59 @@ CAPIF_API_Services
   * test_plan: test plan descriptions for each API service referring to the test that are executed with the Robot Framework.
   * testing_with_postman: auxiliary JSON file needed for the Postman-based examples.
 
-# FOGUS-CAPIF-Services
+# CAPIF-Services
 This repository has the python-flask Mockup servers created with openapi-generator related with CAPIF APIS defined here:
 [Open API Descriptions of 3GPP 5G APIs]
 
+## Installations
+### Install [Docker](https://docs.docker.com/get-docker/)
+### Inastall [Make](https://www.gnu.org/software/make/)
+### Install [Docker Compose](https://docs.docker.com/compose/)
+
 ## How to run CAPIF services in this Repository
-Capif services are developed under /service/ folder.
+First, clone the repository and go to 
+[service](https://github.com/fogusinnovations/FOGUS-CAPIF-Services/tree/main/services) folder.
 
-### Run All CAPIF Services locally with Docker images
-To run using docker and docker-compose you must ensure you have that tools installed at your machine. Also to simplify the process, we have 3 script to control docker images to deploy, check and cleanup.
 
-To run all CAPIF APIs locally using docker and docker-compose you can execute:
 ```
+git clone https://github.com/fogusinnovations/FOGUS-CAPIF-Services.git
+
 cd services/
-
-./run.sh
+``` 
+To run all CAPIF APIs locally using [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/) you can execute :
 ```
+make (run)
+``` 
+
 This will build and run all services using docker images, including mongodb and nginx locally and in background, and import ca.crt to nginx.
 
-Nginx deployed by default use **capifcore** hostname, but can add a parameter when run.sh is executed setting a different hostname, for example,
+Nginx deployed by default use **capifcore** hostname, but can add a parameter when make run is executed setting a different hostname, for example,
 ```
-./run.sh fogus.services.eu
+make run fogus.services.eu
 ```
 
-If you want to check if all CAPIF services are running properly in local machine after execute run.sh, we can use:
+If you want to check if CAPIF services are running properly in local machine we can use:
 ```
-./check_services_are_running.sh
+make check
 ```
-This shell script will return 0 if all services are running properly.
+If everything is up and running it will print the message "All services are running". Otherwise, we will get an error message listing the services that are down.
 
-When we need to stop CAPIF services, we can use next bash script:
+To stop all CAPIF services :
 ```
-./clean_capif_docker_services.sh
+make stop
 ```
-This shell script will remove and clean all CAPIF services started previously with run.sh
-
+To remove and clean all CAPIF services :
+```
+make down
+```
+To restart all CAPIF services:
+```
+make restart
+```
+To remove and start again all CAPIF services :
+```
+make fresh
+```
 ### Run each service using Docker
 
 Also you can run service by service using docker:
