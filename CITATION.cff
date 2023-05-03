@@ -1,9 +1,9 @@
-cff-version: 1.0.0
+cff-version: 2.1.0
 message: "If you use this software, please cite it as below."
 authors:
 - family-names: "FOGUS Innovations & Services"
   given-names: "FOGUS Innovations & Services"
-title: "FOGUS-CAPIF-Services"
-version: 1.0
+title: "CAPIF-Services"
+version: 2.1
 date-released: 2023-04-15
-url: "https://github.com/fogusinnovations/FOGUS-CAPIF-Services"
+url: "https://github.com/fogusinnovations/CAPIF-Services"

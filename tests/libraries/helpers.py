@@ -71,12 +71,12 @@ def create_csr(csr_file_path, private_key_path, cn):
     # Generate CSR
     req = X509Req()
     req.get_subject().CN = cn
-    req.get_subject().O = 'Fogus Innovations & Services P.C.'
+    req.get_subject().O = 'Telefonica I+D'
     req.get_subject().OU = 'Innovation'
-    req.get_subject().L = 'Athens'
-    req.get_subject().ST = 'Athens'
-    req.get_subject().C = 'GR'
-    req.get_subject().emailAddress = 'info@fogus.gr'
+    req.get_subject().L = 'Madrid'
+    req.get_subject().ST = 'Madrid'
+    req.get_subject().C = 'ES'
+    req.get_subject().emailAddress = 'inno@tid.es'
     req.set_pubkey(key)
     req.sign(key, 'sha256')
 
