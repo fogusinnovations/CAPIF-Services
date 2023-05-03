@@ -57,7 +57,7 @@ This repository has the python-flask Mockup servers created with openapi-generat
 
 ## How to run CAPIF services in this Repository
 First, clone the repository and go to 
-[service](https://github.com/fogusinnovations/FOGUS-CAPIF-Services/tree/main/services) folder.
+[services](https://github.com/fogusinnovations/FOGUS-CAPIF-Services/tree/main/services) folder.
 
 
 ```
